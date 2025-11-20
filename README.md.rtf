@@ -1,0 +1,150 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 title: "EV Battery Thermal Regulation System (MATLAB/Simulink)"\
+\
+author:\
+  name: "Omar Siddiqui"\
+  email: "omarsiddiqui003@gmail.com"\
+  website: "https://www.omarailabs.com"\
+\
+summary: >\
+  Thermal control simulation for an EV battery pack \'97 continuous and discrete PI controllers,\
+  actuator dynamics, safety logic, thermal-runaway testing and full analysis scripts.\
+\
+repository_structure:\
+  - path: "model/"\
+    contents:\
+      - "EV_Thermal.slx"\
+      - "EV_Thermal_overview.png"\
+      - "Controller_Discrete.png"\
+      - "Controller_Continuous.png"\
+\
+  - path: "scripts/"\
+    contents:\
+      - \'93scripts_ev_run.m"\
+      - "ev_batch_run.m"\
+      - \'93scripts_make_final_plots.m"\
+      - "ev_analysis.m"\
+\
+  - path: "plots/"\
+    contents:\
+      - "cont_PI_summary.png"\
+      - "disc_PI_summary.png"\
+      - "cont_runaway_summary.png"\
+      - "temperature_plot.png"\
+\
+  - path: "results/"\
+    contents:\
+      - "summary_table.csv"\
+      - "ev_results.mat"\
+      - "batch_results.csv"\
+\
+  - path: "report/"\
+    contents:\
+      - "EV_Thermal_Report.pdf"\
+\
+quick_start:\
+  - step: "Clone repository"\
+    command: "git clone https://github.com/<your-username>/EV-Battery-Thermal-Regulation.git"\
+\
+  - step: "Enter project directory"\
+    command: "cd EV-Battery-Thermal-Regulation"\
+\
+  - step: "Open MATLAB and set working folder"\
+    command: "cd <local_repo_path>"\
+\
+  - step: "Open Simulink model"\
+    command: "open_system('model/EV_Thermal.slx')"\
+\
+  - step: "Run simulation"\
+    command: "simOut = sim('model/EV_Thermal.slx')"\
+\
+scripts_usage:\
+  scripts_ev_run:\
+    description: "Runs a single simulation and prints summary stats."\
+    run: "run scripts/ev_run.m"\
+    outputs:\
+      - "Temperature response plot \uc0\u8594  plots/temperature_plot.png"\
+      - "Simulation data \uc0\u8594  results/ev_results.mat"\
+\
+  ev_batch_run:\
+    description: "Runs continuous, discrete, and runaway cases."\
+    run: "run scripts/ev_batch_run.m"\
+    outputs:\
+      - "summary_table.csv"\
+      - "All controller mode plots"\
+\
+  scripts_make_final_plots:\
+    description: "Exports final figures and visuals."\
+    run: "run scripts/make_final_plots.m"\
+\
+controller_modes:\
+  mode_switch:\
+    0: "Continuous PI controller"\
+    1: "Discrete PI controller"\
+\
+  programmatic_setting:\
+    example: "set_param('EV_Thermal/mode','Value','1')"\
+\
+actuator_model:\
+  transfer_function: "1 / (3s + 1)"\
+  gain: 200\
+  meaning: "Represents coolant actuator dynamics inside thermal plant."\
+\
+thermal_runaway:\
+  enable_flag: "enable_runaway"\
+  description: >\
+    Adds a high-energy thermal pulse on top of the normal heat input, simulating\
+    a battery cell internal fault event.\
+\
+  activation:\
+    command: "set_param('EV_Thermal/enable_runaway','Value','1')"\
+\
+safety_logic:\
+  deadband_low_temp:\
+    condition: "If T < 33\'b0C"\
+    action: "Disable actuator (u_cmd = 0)"\
+\
+  high_temp_emergency:\
+    condition: "If T > 40\'b0C"\
+    action: "Force full cooling (u_cmd = 1)"\
+\
+results_example:\
+  continuous:\
+    peak_temperature_c: 43\
+    settling_time_s: 10\
+    steady_state: 35\
+    emergency_triggered: false\
+\
+  discrete:\
+    peak_temperature_c: 43\
+    settling_time_s: 12\
+    steady_state: 35\
+    emergency_triggered: false\
+\
+  runaway_continuous:\
+    peak_temperature_c: 56\
+    final_temperature_c: 40\
+    emergency_triggered: true\
+\
+documentation:\
+  pdf_report: "report/EV_Thermal_Report.pdf"\
+  contains:\
+    - "Mathematical modelling"\
+    - "Controller design"\
+    - "Simulation diagrams"\
+    - "Heat flow & safety system"\
+    - "Full results discussion"\
+\
+author_links:\
+  linkedin: "{\field{\*\fldinst{HYPERLINK "https://www.linkedin.com/in/omarsiddiqui003/"}}{\fldrslt https://www.linkedin.com/in/omarsiddiqui003/}}"\
+  website: "https://www.omarailabs.com"\
+\
+support:\
+  message: "If this project helped you, give the repo a \uc0\u11088  on GitHub!"\
+}
